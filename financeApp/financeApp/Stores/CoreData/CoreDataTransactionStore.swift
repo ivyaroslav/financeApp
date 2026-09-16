@@ -16,11 +16,23 @@ final class CoreDataTransactionStore: TransactionStore {
     }
 
     func save(_ transaction: Transaction) throws {
-        // ...
+        let entity = TransactionEntity(context: context)
+        entity.id = transaction.id
+        entity.amount = NSDecimalNumber(decimal: transaction.amount)
+        entity.date = transaction.date
+        entity.type = transaction.type
+
+        let accountRequest = AccountEntity.fetchRequest()
+        accountRequest.predicate = NSPredicate(format: "id == %@", transaction.accountID as CVarArg)
+        if let accountEntity = try context.fetch(accountRequest).first {
+            entity.account = accountEntity
+        }
+
+        try context.save()
     }
 
     func fetchAll(forAccountID accountID: UUID) throws -> [Transaction] {
-        fatalError("Not implemented yet")
+        
     }
 
     func delete(_ transaction: Transaction) throws {
