@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import CoreData
 @main
 struct financeAppApp: App {
     let persistenceController = PersistenceController.shared

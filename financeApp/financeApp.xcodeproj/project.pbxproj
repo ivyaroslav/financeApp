@@ -6,8 +6,19 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		CE8D0BC8305AFDD800DF2273 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CE8D0B903056D3D900DF2273 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CE8D0B973056D3D900DF2273;
+			remoteInfo = financeApp;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		CE8D0B983056D3D900DF2273 /* financeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = financeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE8D0BC4305AFDD800DF2273 /* financeAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = financeAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -16,10 +27,22 @@
 			path = financeApp;
 			sourceTree = "<group>";
 		};
+		CE8D0BC5305AFDD800DF2273 /* financeAppTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = financeAppTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		CE8D0B953056D3D900DF2273 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE8D0BC1305AFDD800DF2273 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				CE8D0B9A3056D3D900DF2273 /* financeApp */,
+				CE8D0BC5305AFDD800DF2273 /* financeAppTests */,
 				CE8D0B993056D3D900DF2273 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				CE8D0B983056D3D900DF2273 /* financeApp.app */,
+				CE8D0BC4305AFDD800DF2273 /* financeAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,6 +95,29 @@
 			productReference = CE8D0B983056D3D900DF2273 /* financeApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		CE8D0BC3305AFDD800DF2273 /* financeAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE8D0BCA305AFDD800DF2273 /* Build configuration list for PBXNativeTarget "financeAppTests" */;
+			buildPhases = (
+				CE8D0BC0305AFDD800DF2273 /* Sources */,
+				CE8D0BC1305AFDD800DF2273 /* Frameworks */,
+				CE8D0BC2305AFDD800DF2273 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CE8D0BC9305AFDD800DF2273 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				CE8D0BC5305AFDD800DF2273 /* financeAppTests */,
+			);
+			name = financeAppTests;
+			packageProductDependencies = (
+			);
+			productName = financeAppTests;
+			productReference = CE8D0BC4305AFDD800DF2273 /* financeAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -82,6 +130,11 @@
 				TargetAttributes = {
 					CE8D0B973056D3D900DF2273 = {
 						CreatedOnToolsVersion = 26.6;
+					};
+					CE8D0BC3305AFDD800DF2273 = {
+						CreatedOnToolsVersion = 26.6;
+						LastSwiftMigration = 2660;
+						TestTargetID = CE8D0B973056D3D900DF2273;
 					};
 				};
 			};
@@ -100,12 +153,20 @@
 			projectRoot = "";
 			targets = (
 				CE8D0B973056D3D900DF2273 /* financeApp */,
+				CE8D0BC3305AFDD800DF2273 /* financeAppTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		CE8D0B963056D3D900DF2273 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE8D0BC2305AFDD800DF2273 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +183,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CE8D0BC0305AFDD800DF2273 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CE8D0BC9305AFDD800DF2273 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CE8D0B973056D3D900DF2273 /* financeApp */;
+			targetProxy = CE8D0BC8305AFDD800DF2273 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		CE8D0BA13056D3DA00DF2273 /* Debug */ = {
@@ -329,6 +405,56 @@
 			};
 			name = Release;
 		};
+		CE8D0BCB305AFDD800DF2273 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B74MZNR52M;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ivyaroslav.financeAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/financeApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/financeApp";
+			};
+			name = Debug;
+		};
+		CE8D0BCC305AFDD800DF2273 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = B74MZNR52M;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ivyaroslav.financeAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/financeApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/financeApp";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -346,6 +472,15 @@
 			buildConfigurations = (
 				CE8D0BA43056D3DA00DF2273 /* Debug */,
 				CE8D0BA53056D3DA00DF2273 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE8D0BCA305AFDD800DF2273 /* Build configuration list for PBXNativeTarget "financeAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE8D0BCB305AFDD800DF2273 /* Debug */,
+				CE8D0BCC305AFDD800DF2273 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
