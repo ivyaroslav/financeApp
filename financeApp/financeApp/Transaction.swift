@@ -11,4 +11,5 @@ struct Transaction {
     let date: Date
     let type: String
     let contact: Contact?
+    let accountID: UUID
 }

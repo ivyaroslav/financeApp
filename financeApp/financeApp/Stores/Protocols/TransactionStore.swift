@@ -8,6 +8,6 @@
 import Foundation
 protocol TransactionStore {
     func save(_ transaction: Transaction) throws
-    func fetchAll() throws -> [Transaction]
+    func fetchAll(forAccountID accountID: UUID) throws -> [Transaction] 
     func delete(_ transaction: Transaction) throws
 }

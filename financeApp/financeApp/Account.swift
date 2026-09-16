@@ -10,7 +10,6 @@ struct Account {
     let currency: String
     let balance: Decimal
     let isDefault: Bool
-    let transactions: [Transaction]
     let ownerID: UUID
 }
 
