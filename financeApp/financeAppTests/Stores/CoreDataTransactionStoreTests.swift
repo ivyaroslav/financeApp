@@ -44,4 +44,20 @@ final class CoreDataTransactionStoreTests: XCTestCase {
         XCTAssertEqual(results.first?.id, transaction.id)
         XCTAssertEqual(results.first?.accountID, accountID)
     }
+    
+    func testFetchAll_excludesTransactionsFromOtherAccounts() throws {
+        let accountA = UUID()
+        let accountB = UUID()
+
+        let transactionA = Transaction(id: UUID(), amount: 10, date: Date(), type: "expense", contact: nil, accountID: accountA)
+        let transactionB = Transaction(id: UUID(), amount: 20, date: Date(), type: "expense", contact: nil, accountID: accountB)
+
+        try store.save(transactionA)
+        try store.save(transactionB)
+
+        let results = try store.fetchAll(forAccountID: accountA)
+
+        XCTAssertEqual(results.count, 1)
+        XCTAssertEqual(results.first?.id, transactionA.id)
+    }
 }
