@@ -4,7 +4,6 @@
 //
 //  Created by yaroslav on 15/09/2026.
 //
-
 import Foundation
 struct Transaction {
     let id: UUID
