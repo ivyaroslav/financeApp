@@ -25,8 +25,22 @@ final class CoreDataTransactionStoreTests: XCTestCase {
     }
 
     func testSaveTransaction_thenFetchByAccountID_returnsIt() throws {
+        let ownerID = UUID()
         let accountID = UUID()
+        let user = UserEntity(context: controller.container.viewContext)
+        user.id = ownerID
+        user.firstName = "Test"
+        user.lastName = "User"
+        user.phoneNumber = "+123456789"
+        
 
+        let account = AccountEntity(context: controller.container.viewContext)
+        account.id = accountID
+        account.currency = "GBP"
+        account.balance = NSDecimalNumber(value: 100)
+        account.isDefault = true
+        account.owner = user
+        try controller.container.viewContext.save()
         let transaction = Transaction(
             id: UUID(),
             amount: 25.50,
