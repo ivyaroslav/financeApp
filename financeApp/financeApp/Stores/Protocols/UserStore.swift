@@ -7,6 +7,5 @@
 import Foundation
 protocol UserStore {
     func save(_ user: User) throws
-    func fetchAll() throws -> [User]
-    func delete(_ user: User) throws
+    func fetchCurrentUser() throws -> User?
 }
