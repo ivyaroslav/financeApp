@@ -10,5 +10,4 @@ struct User {
     let firstName: String
     let lastName: String
     let phoneNumber: String
-    let accounts: [Account]
 }

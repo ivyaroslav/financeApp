@@ -64,6 +64,9 @@ final class CoreDataTransactionStoreTests: XCTestCase {
            XCTAssertEqual(results.count, 1)
            XCTAssertEqual(results.first?.id, transaction.id)
            XCTAssertEqual(results.first?.accountID, accountID)
+           XCTAssertEqual(results.first?.amount, transaction.amount)
+           XCTAssertEqual(results.first?.date, transaction.date)
+           XCTAssertEqual(results.first?.type, transaction.type)
     }
     
     func testFetchAll_excludesTransactionsFromOtherAccounts() throws {
