@@ -81,4 +81,21 @@ final class CoreDataTransactionStoreTests: XCTestCase {
             XCTAssertEqual(results.count, 1)
             XCTAssertEqual(results.first?.id, transactionA.id)
         }
+    
+    func testDelete_removesTransaction() throws {
+        let accountID = try makeAccount()
+        let transaction = Transaction(id: UUID(), amount: 10, date: Date(), type: "expense", contact: nil, accountID: accountID)
+        try store.save(transaction)
+
+        try store.delete(transaction)
+
+        let results = try store.fetchAll(forAccountID: accountID)
+        XCTAssertEqual(results.count, 0)
+    }
+    
+    func testDelete_whenTransactionDoesNotExist_throwsError() {
+        let fakeTransaction = Transaction(id: UUID(), amount: 10, date: Date(), type: "expense", contact: nil, accountID: UUID())
+
+        XCTAssertThrowsError(try store.delete(fakeTransaction))
+    }
 }
