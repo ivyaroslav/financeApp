@@ -58,6 +58,14 @@ final class CoreDataTransactionStore: TransactionStore {
     }
 
     func delete(_ transaction: Transaction) throws {
-        // ...
+        let request = TransactionEntity.fetchRequest()
+            request.predicate = NSPredicate(format: "id == %@", transaction.id as CVarArg)
+
+            guard let entity = try context.fetch(request).first else {
+                throw StoreError.transactionNotFound
+            }
+
+            context.delete(entity)
+            try context.save()
     }
 }
