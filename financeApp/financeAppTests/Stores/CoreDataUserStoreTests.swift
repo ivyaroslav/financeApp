@@ -24,20 +24,6 @@ final class CoreDataUserStoreTests: XCTestCase {
         super.tearDown()
     }
     
-    //    private func makeUser() throws -> UUID {
-    //        let context = controller.container.viewContext
-    //
-    //        let user = UserEntity(context: context)
-    //        let userID = UUID()
-    //        user.id = userID
-    //        user.firstName = "Test"
-    //        user.lastName = "User"
-    //        user.phoneNumber = "+123456789"
-    //
-    //        try context.save()
-    //        return userID
-    //    }
-    
     func testSaveUser_thenFetchCurrentUser_returnsIt() throws {
         let user = User(
             id: UUID(),

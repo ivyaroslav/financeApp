@@ -8,4 +8,5 @@ import Foundation
 enum StoreError: Error {
     case accountNotFound
     case transactionNotFound
+    case corruptedUserData
 }
