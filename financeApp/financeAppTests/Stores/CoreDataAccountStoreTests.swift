@@ -54,4 +54,36 @@ final class CoreDataAccountStoreTests: XCTestCase {
         XCTAssertEqual(result?.isDefault, account.isDefault)
         XCTAssertEqual(result?.ownerID, account.ownerID)
     }
+    
+    func testSaveMultipleAccounts_thenFetchAll_returnsAllOfThem() throws {
+        let context = controller.container.viewContext
+
+        let user = try makeUser()
+
+        let account1 = Account(
+            id: UUID(),
+            currency: "GBP",
+            balance: 100,
+            isDefault: true,
+            ownerID: user.id!
+        )
+
+        let account2 = Account(
+            id: UUID(),
+            currency: "EUR",
+            balance: 50,
+            isDefault: false,
+            ownerID: user.id!
+        )
+
+        try store.save(account1)
+        try store.save(account2)
+
+        let results = try store.fetchAll()
+
+        XCTAssertEqual(results.count, 2)
+        XCTAssertTrue(results.contains { $0.id == account1.id })
+        XCTAssertTrue(results.contains { $0.id == account2.id })
+    }
+    
 }
