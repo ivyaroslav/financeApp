@@ -26,4 +26,8 @@ final class CoreDataAccountStore: AccountStore {
         //...
     }
     
+    func fetchByID(_ id: UUID) throws -> Account? {
+        fatalError("Not implemented yet")
+    }
+    
 }
