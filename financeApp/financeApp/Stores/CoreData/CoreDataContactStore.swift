@@ -15,10 +15,29 @@ final class CoreDataContactStore: ContactStore {
     }
     
     func save(_ contact: Contact) throws {
-        //...
+        let request = ContactEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", contact.id as CVarArg)
+        
+        let entity = try context.fetch(request).first ?? ContactEntity(context: context)
+        
+        entity.id = contact.id
+        entity.firstName = contact.firstName
+        entity.lastName = contact.lastName
+        entity.phoneNumber = contact.phoneNumber
+        
+        try context.save()
     }
     
     func fetchAll() throws -> [Contact] {
-        fatalError("Not implemented yet")
+        let request = ContactEntity.fetchRequest()
+        let entities = try context.fetch(request)
+        return entities.map { entity in
+            Contact(
+                id: entity.id ?? UUID(),
+                firstName: entity.firstName ?? "",
+                lastName: entity.lastName ?? "",
+                phoneNumber: entity.phoneNumber ?? ""
+            )
+        }
     }
 }
