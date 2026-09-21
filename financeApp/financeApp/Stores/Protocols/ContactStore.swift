@@ -9,5 +9,4 @@ import Foundation
 protocol ContactStore {
     func save(_ contact: Contact) throws
     func fetchAll() throws -> [Contact]
-    func delete(_ contact: Contact) throws
 }
