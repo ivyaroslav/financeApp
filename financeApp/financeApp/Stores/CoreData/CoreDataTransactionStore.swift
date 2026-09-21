@@ -47,12 +47,12 @@ final class CoreDataTransactionStore: TransactionStore {
         let entities = try context.fetch(request)
         return entities.map { entity in
             Transaction(
-                id: entity.id!,
-                amount: entity.amount!.decimalValue,
-                date: entity.date!,
-                type: entity.type!,
+                id: entity.id ?? UUID(),
+                amount: entity.amount?.decimalValue ?? 0,
+                date: entity.date ?? Date(),
+                type: entity.type ?? "",
                 contact: nil,
-                accountID: entity.account!.id!
+                accountID: entity.account?.id ?? accountID
             )
         }
     }
