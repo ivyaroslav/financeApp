@@ -21,6 +21,23 @@
 		CE8D0BC4305AFDD800DF2273 /* financeAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = financeAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CEC1F3C83061B9980058F9E5 /* Exceptions for "financeAppTests" folder in "financeApp" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Fakes/InMemoryTransactionStore.swift,
+			);
+			target = CE8D0B973056D3D900DF2273 /* financeApp */;
+		};
+		CEC1F3C93061B9980058F9E5 /* Exceptions for "financeAppTests" folder in "financeAppTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Fakes/InMemoryTransactionStore.swift,
+			);
+			target = CE8D0BC3305AFDD800DF2273 /* financeAppTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		CE8D0B9A3056D3D900DF2273 /* financeApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -29,6 +46,10 @@
 		};
 		CE8D0BC5305AFDD800DF2273 /* financeAppTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CEC1F3C83061B9980058F9E5 /* Exceptions for "financeAppTests" folder in "financeApp" target */,
+				CEC1F3C93061B9980058F9E5 /* Exceptions for "financeAppTests" folder in "financeAppTests" target */,
+			);
 			path = financeAppTests;
 			sourceTree = "<group>";
 		};
