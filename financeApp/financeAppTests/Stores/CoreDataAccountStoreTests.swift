@@ -56,7 +56,6 @@ final class CoreDataAccountStoreTests: XCTestCase {
     }
     
     func testSaveMultipleAccounts_thenFetchAll_returnsAllOfThem() throws {
-        let context = controller.container.viewContext
 
         let user = try makeUser()
 
