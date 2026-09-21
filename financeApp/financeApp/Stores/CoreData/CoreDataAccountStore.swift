@@ -52,7 +52,15 @@ final class CoreDataAccountStore: AccountStore {
     }
     
     func delete(_ account: Account) throws {
-        
+        let request = TransactionEntity.fetchRequest()
+            request.predicate = NSPredicate(format: "id == %@", account.id as CVarArg)
+
+        guard let entity = try context.fetch(request).first else {
+                throw StoreError.accountNotFound
+        }
+
+        context.delete(entity)
+        try context.save()
 
     }
     
