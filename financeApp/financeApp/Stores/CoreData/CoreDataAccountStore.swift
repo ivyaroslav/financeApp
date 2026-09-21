@@ -52,7 +52,8 @@ final class CoreDataAccountStore: AccountStore {
     }
     
     func delete(_ account: Account) throws {
-        //...
+        
+
     }
     
     func fetchByID(_ id: UUID) throws -> Account? {

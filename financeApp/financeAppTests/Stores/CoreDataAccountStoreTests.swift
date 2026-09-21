@@ -85,4 +85,9 @@ final class CoreDataAccountStoreTests: XCTestCase {
         XCTAssertTrue(results.contains { $0.id == account2.id })
     }
     
+    func testDelete_whenAccountDoesNotExist_throwsError() {
+        let fakeAccount = Account(id: UUID(), currency: "GBP", balance: 10, isDefault: false, ownerID: UUID())
+
+        XCTAssertThrowsError(try store.delete(fakeAccount))
+    }
 }
