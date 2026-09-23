@@ -9,6 +9,7 @@ import Foundation
 import Combine
 class TransactionListViewModel: ObservableObject {
     @Published var transactions: [Transaction] = []
+    @Published var errorMessage: String?
     private let store: TransactionStore
     private let accountID: UUID
 
@@ -18,6 +19,11 @@ class TransactionListViewModel: ObservableObject {
     }
 
     func loadTransactions() {
-        transactions = (try? store.fetchAll(forAccountID: accountID)) ?? []
+        do {
+            transactions = try store.fetchAll(forAccountID: accountID)
+            errorMessage = nil
+           } catch {
+                errorMessage = error.localizedDescription
+            }
     }
 }
