@@ -26,6 +26,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Fakes/InMemoryAccountStore.swift,
+				Fakes/InMemoryContactStore.swift,
 				Fakes/InMemoryTransactionStore.swift,
 			);
 			target = CE8D0B973056D3D900DF2273 /* financeApp */;
@@ -34,6 +35,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Fakes/InMemoryAccountStore.swift,
+				Fakes/InMemoryContactStore.swift,
 				Fakes/InMemoryTransactionStore.swift,
 			);
 			target = CE8D0BC3305AFDD800DF2273 /* financeAppTests */;
