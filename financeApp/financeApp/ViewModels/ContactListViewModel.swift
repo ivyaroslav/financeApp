@@ -19,6 +19,11 @@ class ContactListViewModel: ObservableObject {
     }
 
     func loadContacts() {
-       // not implemented yet
+        do {
+            contacts = try store.fetchAll()
+            errorMessage = nil
+            } catch {
+                    errorMessage = "We couldn't load your contacts. Please try again."
+                }
     }
 }
