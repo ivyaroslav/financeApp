@@ -18,6 +18,6 @@ class TransactionListViewModel: ObservableObject {
     }
 
     func loadTransactions() {
-        // not implemented yet
+        transactions = (try? store.fetchAll(forAccountID: accountID)) ?? []
     }
 }
