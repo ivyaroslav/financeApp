@@ -25,6 +25,7 @@
 		CEC1F3C83061B9980058F9E5 /* Exceptions for "financeAppTests" folder in "financeApp" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Fakes/InMemoryAccountStore.swift,
 				Fakes/InMemoryTransactionStore.swift,
 			);
 			target = CE8D0B973056D3D900DF2273 /* financeApp */;
@@ -32,6 +33,7 @@
 		CEC1F3C93061B9980058F9E5 /* Exceptions for "financeAppTests" folder in "financeAppTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Fakes/InMemoryAccountStore.swift,
 				Fakes/InMemoryTransactionStore.swift,
 			);
 			target = CE8D0BC3305AFDD800DF2273 /* financeAppTests */;
