@@ -24,6 +24,6 @@ class TransactionListViewModel: ObservableObject {
             errorMessage = nil
            } catch {
                 errorMessage = error.localizedDescription
-            }
+             }
     }
 }
