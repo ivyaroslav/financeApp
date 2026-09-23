@@ -36,8 +36,7 @@ final class AccountListViewModelTests: XCTestCase {
         try store.save(account2)
 
         let viewModel = AccountListViewModel(
-            store: store,
-            ownerID: ownerID
+            store: store
         )
 
         viewModel.loadAccounts()

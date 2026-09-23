@@ -11,16 +11,20 @@ import Combine
 
 class AccountListViewModel: ObservableObject {
     @Published var accounts: [Account] = []
+    @Published var errorMessage: String?
 
     private let store: AccountStore
-    private let ownerID: UUID
 
-    init(store: AccountStore, ownerID: UUID) {
+    init(store: AccountStore) {
         self.store = store
-        self.ownerID = ownerID
     }
 
     func loadAccounts() {
-       // not implemented yet
+        do {
+            accounts = try store.fetchAll()
+            errorMessage = nil
+           } catch {
+                errorMessage = "We couldn't load your accounts. Please try again."
+             }
     }
 }
