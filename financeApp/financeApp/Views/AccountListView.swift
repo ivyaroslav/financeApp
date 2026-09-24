@@ -77,7 +77,7 @@ struct AccountCardView: View {
             }
             
             
-            HStack(spacing: 55) {
+            HStack(spacing: 54) {
                 
                 Button {
                     // Open transfer screen
@@ -95,24 +95,34 @@ struct AccountCardView: View {
                 }
                 .buttonStyle(.plain)
                 
-                Button {
-                    // Close account
+                Menu {
+                    Button {
+                        // Open add account screen
+                    } label: {
+                        Label("Add new account", systemImage: "plus")
+                    }
+                    
+                    Button(role: .destructive) {
+                        // Close this account
+                    } label: {
+                        Label("Close this account", systemImage: "xmark")
+                    }
+                    
                 } label: {
                     VStack(spacing: 4) {
-                        Image(systemName: "xmark")
+                        Image(systemName: "ellipsis")
                             .font(.system(size: 14))
                             .frame(width: 30, height: 30)
                             .background(.secondary.opacity(0.15))
                             .clipShape(Circle())
                         
-                        Text("Close account")
+                        Text("More")
                             .font(.caption)
                     }
                 }
                 .buttonStyle(.plain)
             }
-            .padding(.top, 12)
+            
         }
-        
     }
 }
