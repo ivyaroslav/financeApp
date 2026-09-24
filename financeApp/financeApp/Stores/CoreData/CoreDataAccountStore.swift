@@ -15,27 +15,32 @@ final class CoreDataAccountStore: AccountStore {
     }
     
     func save(_ account: Account) throws {
-        let entity = AccountEntity(context: context)
+            let request = AccountEntity.fetchRequest()
+            request.predicate = NSPredicate(format: "id == %@", account.id as CVarArg)
 
-        entity.id = account.id
-        entity.balance = NSDecimalNumber(decimal: account.balance)
-        entity.currency = account.currency
-        entity.isDefault = account.isDefault
+            let entity = try context.fetch(request).first ?? AccountEntity(context: context)
 
-        let userRequest = UserEntity.fetchRequest()
-           userRequest.predicate = NSPredicate(
-               format: "id == %@",
-               account.ownerID as CVarArg
-           )
+            entity.id = account.id
+            entity.balance = NSDecimalNumber(decimal: account.balance)
+            entity.currency = account.currency
+            entity.isDefault = account.isDefault
 
-        guard let userEntity = try context.fetch(userRequest).first else {
-            throw StoreError.userNotFound
+            if entity.owner == nil {
+                let userRequest = UserEntity.fetchRequest()
+                userRequest.predicate = NSPredicate(
+                    format: "id == %@",
+                    account.ownerID as CVarArg
+                )
+
+                guard let userEntity = try context.fetch(userRequest).first else {
+                    throw StoreError.userNotFound
+                }
+
+                entity.owner = userEntity
+            }
+
+            try context.save()
         }
-
-        entity.owner = userEntity
-
-        try context.save()
-    }
     
     func fetchAll() throws -> [Account] {
         let request = AccountEntity.fetchRequest()
@@ -52,7 +57,7 @@ final class CoreDataAccountStore: AccountStore {
     }
     
     func delete(_ account: Account) throws {
-        let request = TransactionEntity.fetchRequest()
+        let request = AccountEntity.fetchRequest()
             request.predicate = NSPredicate(format: "id == %@", account.id as CVarArg)
 
         guard let entity = try context.fetch(request).first else {
