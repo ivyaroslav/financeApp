@@ -57,28 +57,62 @@ struct AccountListView: View {
 }
 
 struct AccountCardView: View {
-
+    
     let account: Account
-
+    
     var body: some View {
-
-        VStack(alignment: .leading, spacing: 12) {
-
+        
+        VStack(alignment: .center, spacing: 12) {
+            
             Text(account.currency)
                 .font(.headline)
-
+            
             Text(account.balance.formatted(.currency(code: account.currency)))
                 .font(.largeTitle)
                 .bold()
-
+            
             if account.isDefault {
                 Text("Default account")
                     .font(.caption)
             }
+            
+            
+            HStack(spacing: 55) {
+                
+                Button {
+                    // Open transfer screen
+                } label: {
+                    VStack(spacing: 4) {
+                        Image(systemName: "arrow.left.arrow.right")
+                            .font(.system(size: 14))
+                            .frame(width: 30, height: 30)
+                            .background(.secondary.opacity(0.15))
+                            .clipShape(Circle())
+                        
+                        Text("Transfer")
+                            .font(.caption)
+                    }
+                }
+                .buttonStyle(.plain)
+                
+                Button {
+                    // Close account
+                } label: {
+                    VStack(spacing: 4) {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 14))
+                            .frame(width: 30, height: 30)
+                            .background(.secondary.opacity(0.15))
+                            .clipShape(Circle())
+                        
+                        Text("Close account")
+                            .font(.caption)
+                    }
+                }
+                .buttonStyle(.plain)
+            }
+            .padding(.top, 12)
         }
-        .padding()
-        .frame(maxWidth: .infinity)
-        .frame(height: 180)
+        
     }
 }
-
