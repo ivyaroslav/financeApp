@@ -28,4 +28,36 @@ final class TransferViewModelTests: XCTestCase {
         XCTAssertEqual(transactions.count, 1)
         XCTAssertEqual(transactions.first?.amount, 30)
     }
+    
+    func testTransfer_withInsufficientBalance_setsErrorMessageAndDoesNotDeduct() throws {
+        let accountStore = InMemoryAccountStore()
+        let transactionStore = InMemoryTransactionStore()
+        let user = User(id: UUID(), firstName: "Test", lastName: "User", phoneNumber: "+123343434334")
+        let account = Account(id: UUID(), currency: "GBP", balance: 10, isDefault: true, ownerID: user.id)
+        try accountStore.save(account)
+
+        let contact = Contact(id: UUID(), firstName: "Masha", lastName: "Jackson", phoneNumber: "+447484983939")
+        let viewModel = TransferViewModel(accountStore: accountStore, transactionStore: transactionStore)
+
+        viewModel.transfer(amount: 50, accountID: account.id, contact: contact)
+
+        XCTAssertNotNil(viewModel.errorMessage)
+        let unchangedAccount = try accountStore.fetchByID(account.id)
+        XCTAssertEqual(unchangedAccount?.balance, 10)
+    }
+    
+    func testTransfer_withZeroOrNegativeAmount_setsErrorMessage() async throws {
+        let accountStore = InMemoryAccountStore()
+        let transactionStore = InMemoryTransactionStore()
+        let user = User(id: UUID(), firstName: "Test", lastName: "User", phoneNumber: "+123343434334")
+        let account = Account(id: UUID(), currency: "GBP", balance: 100, isDefault: true, ownerID: user.id)
+        try accountStore.save(account)
+
+        let contact = Contact(id: UUID(), firstName: "Masha", lastName: "Jackson", phoneNumber: "+44...")
+        let viewModel = TransferViewModel(accountStore: accountStore, transactionStore: transactionStore)
+
+        viewModel.transfer(amount: 0, accountID: account.id, contact: contact)
+
+        XCTAssertNotNil(viewModel.errorMessage)
+    }
 }
