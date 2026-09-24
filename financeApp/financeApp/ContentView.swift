@@ -2,23 +2,22 @@
 //  ContentView.swift
 //  financeApp
 //
-//  Created by yaroslav on 13/09/2026.
+//  Created by yaroslav on 23/09/2026.
 //
-
+//
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
-    }
-}
+    let userStore: UserStore
+    let accountStore: AccountStore
+    let transactionStore: TransactionStore
+    let contactStore: ContactStore
 
-#Preview {
-    ContentView()
+    var body: some View {
+        AccountListView(
+            viewModel: AccountListViewModel(
+                store: accountStore
+            )
+        )
+    }
 }
