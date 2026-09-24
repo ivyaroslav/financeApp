@@ -27,6 +27,48 @@ final class TransferViewModel: ObservableObject {
         accountID: UUID,
         contact: Contact
     ) {
-        // not implemented yet
+
+        do {
+            guard let account = try accountStore.fetchByID(accountID) else {
+                errorMessage = "We couldn't find this account."
+                return
+            }
+
+            guard amount > 0 else {
+                errorMessage = "Please enter a valid amount."
+                return
+            }
+
+            guard account.balance >= amount else {
+                errorMessage = "You don't have enough money in this account."
+                return
+            }
+
+            let updatedAccount = Account(
+                id: account.id,
+                currency: account.currency,
+                balance: account.balance - amount,
+                isDefault: account.isDefault,
+                ownerID: account.ownerID
+            )
+
+            try accountStore.save(updatedAccount)
+
+            let transaction = Transaction(
+                id: UUID(),
+                amount: amount,
+                date: Date(),
+                type: "transfer",
+                contact: contact,
+                accountID: account.id
+            )
+
+            try transactionStore.save(transaction)
+
+            errorMessage = nil
+
+        } catch {
+            errorMessage = "We couldn't complete the transfer. Please try again."
+        }
     }
 }

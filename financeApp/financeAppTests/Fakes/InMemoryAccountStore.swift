@@ -12,7 +12,11 @@ final class InMemoryAccountStore: AccountStore {
     private var accounts: [Account] = []
 
     func save(_ account: Account) throws {
-        accounts.append(account)
+        if let index = accounts.firstIndex(where: { $0.id == account.id }) {
+            accounts[index] = account
+        } else {
+            accounts.append(account)
+        }
     }
 
     func fetchAll() throws -> [Account] {
