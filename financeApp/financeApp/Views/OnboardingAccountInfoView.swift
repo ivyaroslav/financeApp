@@ -62,7 +62,7 @@ struct OnboardingAccountInfoView: View {
                 let newAccount = Account(
                     id: UUID(),
                     currency: currency,
-                    balance: 0,
+                    balance: 100,
                     isDefault: isDefault,
                     ownerID: user.id
                 )

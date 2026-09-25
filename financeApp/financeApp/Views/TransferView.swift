@@ -7,6 +7,7 @@
 
 
 
+
 import SwiftUI
 
 struct TransferView: View {
@@ -18,11 +19,14 @@ struct TransferView: View {
     let transactionStore: TransactionStore
     let contactStore: ContactStore
 
+    @Binding var navigationPath: NavigationPath
+
     init(
         accountStore: AccountStore,
         transactionStore: TransactionStore,
         accountID: UUID,
-        contactStore: ContactStore
+        contactStore: ContactStore,
+        navigationPath: Binding<NavigationPath>
     ) {
         _contactViewModel = StateObject(
             wrappedValue: ContactListViewModel(
@@ -34,6 +38,7 @@ struct TransferView: View {
         self.accountStore = accountStore
         self.transactionStore = transactionStore
         self.contactStore = contactStore
+        self._navigationPath = navigationPath
     }
 
     var body: some View {
@@ -67,15 +72,20 @@ struct TransferView: View {
 
                 } else {
 
-                    ForEach(contactViewModel.contacts, id: \.id) { contact in
+                    ForEach(
+                        contactViewModel.contacts,
+                        id: \.id
+                    ) { contact in
 
-                        NavigationLink {
-                            TransferAmountView(
-                                accountID: accountID,
-                                contact: contact,
-                                accountStore: accountStore,
-                                transactionStore: transactionStore
+                        Button {
+
+                            navigationPath.append(
+                                NavigationRoute.amount(
+                                    accountID: accountID,
+                                    contact: contact
+                                )
                             )
+
                         } label: {
 
                             HStack(spacing: 12) {
@@ -83,11 +93,16 @@ struct TransferView: View {
                                 Image(systemName: "person.circle.fill")
                                     .font(.system(size: 35))
 
-                                VStack(alignment: .leading, spacing: 3) {
+                                VStack(
+                                    alignment: .leading,
+                                    spacing: 3
+                                ) {
 
-                                    Text("\(contact.firstName) \(contact.lastName)")
-                                        .font(.body)
-                                        .fontWeight(.medium)
+                                    Text(
+                                        "\(contact.firstName) \(contact.lastName)"
+                                    )
+                                    .font(.body)
+                                    .fontWeight(.medium)
 
                                     Text(contact.phoneNumber)
                                         .font(.caption)
@@ -108,20 +123,21 @@ struct TransferView: View {
 
             Spacer()
 
-            NavigationLink {
-                CreateContactView(
-                    contactStore: contactStore,
-                    accountStore: accountStore,
-                    transactionStore: transactionStore,
-                    accountID: accountID
+            Button {
+
+                navigationPath.append(
+                    NavigationRoute.createContact(accountID)
                 )
-                
+
             } label: {
 
-                Label("Add new contact", systemImage: "plus")
-                    .fontWeight(.semibold)
-                    .frame(maxWidth: .infinity)
-                    .padding()
+                Label(
+                    "Add new contact",
+                    systemImage: "plus"
+                )
+                .fontWeight(.semibold)
+                .frame(maxWidth: .infinity)
+                .padding()
             }
             .buttonStyle(.borderedProminent)
         }
@@ -133,3 +149,4 @@ struct TransferView: View {
         }
     }
 }
+

@@ -5,6 +5,9 @@
 //  Created by yaroslav on 23/09/2026.
 //
 
+
+
+
 import SwiftUI
 
 struct AccountListView: View {
@@ -15,18 +18,25 @@ struct AccountListView: View {
     let transactionStore: TransactionStore
     let contactStore: ContactStore
 
+    @Binding var navigationPath: NavigationPath
+
+    @State private var selectedAccountID: UUID?
+
     init(
         viewModel: AccountListViewModel,
         accountStore: AccountStore,
         transactionStore: TransactionStore,
-        contactStore: ContactStore
+        contactStore: ContactStore,
+        navigationPath: Binding<NavigationPath>
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
-        
+
         self.accountStore = accountStore
         self.transactionStore = transactionStore
         self.contactStore = contactStore
+        self._navigationPath = navigationPath
     }
+
     var body: some View {
 
         VStack {
@@ -34,6 +44,7 @@ struct AccountListView: View {
             if let errorMessage = viewModel.errorMessage {
 
                 VStack(spacing: 10) {
+
                     Text(errorMessage)
 
                     Button("Try Again") {
@@ -47,107 +58,80 @@ struct AccountListView: View {
 
             } else {
 
-                TabView {
+                TabView(selection: $selectedAccountID) {
+
                     ForEach(viewModel.accounts, id: \.id) { account in
+
                         AccountCardView(
                             account: account,
                             accountStore: accountStore,
                             transactionStore: transactionStore,
-                            contactStore: contactStore
+                            contactStore: contactStore,
+                            navigationPath: $navigationPath
                         )
-                            .padding(.horizontal)
+                        .padding(.horizontal)
+                        .tag(account.id)
                     }
                 }
                 .tabViewStyle(.page)
                 .frame(height: 200)
+
+                if let selectedAccountID,
+                   let selectedAccount = viewModel.accounts.first(
+                       where: { $0.id == selectedAccountID }
+                   ) {
+
+                    TransactionListView(
+                        accountID: selectedAccountID,
+                        currency: selectedAccount.currency,
+                        transactionStore: transactionStore
+                    )
+                    .id(selectedAccountID)
+                }
+
+                Spacer()
             }
         }
         .frame(
             maxWidth: .infinity,
             maxHeight: .infinity,
             alignment: .top
-        ).padding(.top, 60)
+        )
+        .padding(.top, 60)
         .onAppear {
-            viewModel.loadAccounts()
+            refreshAccounts()
+        }
+        .onChange(of: viewModel.accounts.map(\.id)) { _, _ in
+            refreshSelectedAccount()
+        }
+    }
+
+    private func refreshAccounts() {
+
+        viewModel.loadAccounts()
+
+        refreshSelectedAccount()
+    }
+
+    private func refreshSelectedAccount() {
+
+        guard !viewModel.accounts.isEmpty else {
+            selectedAccountID = nil
+            return
+        }
+
+        if selectedAccountID == nil {
+            selectedAccountID = viewModel.accounts.first?.id
+            return
+        }
+
+        if let selectedAccountID,
+           !viewModel.accounts.contains(where: {
+               $0.id == selectedAccountID
+           }) {
+
+            self.selectedAccountID = viewModel.accounts.first?.id
         }
     }
 }
 
-struct AccountCardView: View {
-    
-    let account: Account
-    let accountStore: AccountStore
-    let transactionStore: TransactionStore
-    let contactStore: ContactStore
-    
-    var body: some View {
-        
-        VStack(alignment: .center, spacing: 12) {
-            
-            Text(account.currency)
-                .font(.headline)
-            
-            Text(account.balance.formatted(.currency(code: account.currency)))
-                .font(.largeTitle)
-                .bold()
-            
-            if account.isDefault {
-                Text("Default account")
-                    .font(.caption)
-            }
-            
-            
-            HStack(spacing: 54) {
-                
-                NavigationLink {
-                    TransferView(
-                        accountStore: accountStore,
-                        transactionStore: transactionStore,
-                        accountID: account.id,
-                        contactStore: contactStore
-                    )
-                } label: {
-                    VStack(spacing: 4) {
-                        Image(systemName: "arrow.left.arrow.right")
-                            .font(.system(size: 14))
-                            .frame(width: 30, height: 30)
-                            .background(.secondary.opacity(0.15))
-                            .clipShape(Circle())
-
-                        Text("Transfer")
-                            .font(.caption)
-                    }
-                }
-                .buttonStyle(.plain)
-                
-                Menu {
-                    Button {
-                        // Open add account screen
-                    } label: {
-                        Label("Add new account", systemImage: "plus")
-                    }
-                    
-                    Button(role: .destructive) {
-                        // Close this account
-                    } label: {
-                        Label("Close this account", systemImage: "xmark")
-                    }
-                    
-                } label: {
-                    VStack(spacing: 4) {
-                        Image(systemName: "ellipsis")
-                            .font(.system(size: 14))
-                            .frame(width: 30, height: 30)
-                            .background(.secondary.opacity(0.15))
-                            .clipShape(Circle())
-                        
-                        Text("More")
-                            .font(.caption)
-                    }
-                }
-                .buttonStyle(.plain)
-            }
-            
-        }
-    }
-}

@@ -27,22 +27,22 @@ final class TransferViewModel: ObservableObject {
         amount: Decimal,
         accountID: UUID,
         contact: Contact
-    ) {
+    ) -> Bool {
 
         do {
             guard let account = try accountStore.fetchByID(accountID) else {
                 errorMessage = "We couldn't find this account."
-                return
+                return false
             }
 
             guard amount > 0 else {
                 errorMessage = "Please enter a valid amount."
-                return
+                return false
             }
 
             guard account.balance >= amount else {
                 errorMessage = "You don't have enough money in this account."
-                return
+                return false
             }
 
             let updatedAccount = Account(
@@ -67,9 +67,11 @@ final class TransferViewModel: ObservableObject {
             try transactionStore.save(transaction)
 
             errorMessage = nil
+            return true
 
         } catch {
             errorMessage = "We couldn't complete the transfer. Please try again."
+            return false
         }
         
        

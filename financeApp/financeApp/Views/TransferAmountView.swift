@@ -4,9 +4,6 @@
 //
 //  Created by yaroslav on 25/09/2026.
 //
-
-
-
 import SwiftUI
 
 struct TransferAmountView: View {
@@ -18,11 +15,14 @@ struct TransferAmountView: View {
 
     @State private var amountText = ""
 
+    @Binding var navigationPath: NavigationPath
+
     init(
         accountID: UUID,
         contact: Contact,
         accountStore: AccountStore,
-        transactionStore: TransactionStore
+        transactionStore: TransactionStore,
+        navigationPath: Binding<NavigationPath>
     ) {
         _viewModel = StateObject(
             wrappedValue: TransferViewModel(
@@ -33,6 +33,7 @@ struct TransferAmountView: View {
 
         self.accountID = accountID
         self.contact = contact
+        self._navigationPath = navigationPath
     }
 
     var body: some View {
@@ -49,9 +50,11 @@ struct TransferAmountView: View {
                     .font(.largeTitle)
                     .fontWeight(.bold)
 
-                Text("How much would you like to send to \(contact.firstName)?")
-                    .font(.body)
-                    .foregroundStyle(.secondary)
+                Text(
+                    "How much would you like to send to \(contact.firstName)?"
+                )
+                .font(.body)
+                .foregroundStyle(.secondary)
             }
 
             VStack(alignment: .leading, spacing: 18) {
@@ -59,12 +62,14 @@ struct TransferAmountView: View {
                 Text("Amount")
                     .font(.headline)
 
-                TextField("0.00", text: $amountText)
-                    .keyboardType(.decimalPad)
-                    .textFieldStyle(.roundedBorder)
-
+                TextField(
+                    "0.00",
+                    text: $amountText
+                )
+                .keyboardType(.decimalPad)
+                .textFieldStyle(.roundedBorder)
             }
-                
+
             VStack(alignment: .leading, spacing: 18) {
 
                 Text("Your balance:")
@@ -86,7 +91,7 @@ struct TransferAmountView: View {
                         .foregroundStyle(.secondary)
                 }
             }
-            
+
             if let errorMessage = viewModel.errorMessage {
 
                 Text(errorMessage)
@@ -101,11 +106,24 @@ struct TransferAmountView: View {
                     return
                 }
 
-                viewModel.transfer(
+                let success = viewModel.transfer(
                     amount: amount,
                     accountID: accountID,
                     contact: contact
                 )
+
+                if success {
+
+                    let currency = viewModel.account?.currency ?? ""
+
+                    navigationPath.append(
+                        NavigationRoute.success(
+                            amount: amount,
+                            contact: contact,
+                            currency: currency
+                        )
+                    )
+                }
 
             } label: {
 
@@ -121,7 +139,9 @@ struct TransferAmountView: View {
         .navigationTitle("Amount")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            viewModel.loadAccount(accountID: accountID)
+            viewModel.loadAccount(
+                accountID: accountID
+            )
         }
     }
 }
