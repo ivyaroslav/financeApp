@@ -11,10 +11,22 @@ struct AccountListView: View {
 
     @StateObject private var viewModel: AccountListViewModel
 
-    init(viewModel: AccountListViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
-    }
+    let accountStore: AccountStore
+    let transactionStore: TransactionStore
+    let contactStore: ContactStore
 
+    init(
+        viewModel: AccountListViewModel,
+        accountStore: AccountStore,
+        transactionStore: TransactionStore,
+        contactStore: ContactStore
+    ) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+        
+        self.accountStore = accountStore
+        self.transactionStore = transactionStore
+        self.contactStore = contactStore
+    }
     var body: some View {
 
         VStack {
@@ -37,7 +49,12 @@ struct AccountListView: View {
 
                 TabView {
                     ForEach(viewModel.accounts, id: \.id) { account in
-                        AccountCardView(account: account)
+                        AccountCardView(
+                            account: account,
+                            accountStore: accountStore,
+                            transactionStore: transactionStore,
+                            contactStore: contactStore
+                        )
                             .padding(.horizontal)
                     }
                 }
@@ -59,6 +76,9 @@ struct AccountListView: View {
 struct AccountCardView: View {
     
     let account: Account
+    let accountStore: AccountStore
+    let transactionStore: TransactionStore
+    let contactStore: ContactStore
     
     var body: some View {
         
@@ -79,8 +99,13 @@ struct AccountCardView: View {
             
             HStack(spacing: 54) {
                 
-                Button {
-                    // Open transfer screen
+                NavigationLink {
+                    TransferView(
+                        accountStore: accountStore,
+                        transactionStore: transactionStore,
+                        accountID: account.id,
+                        contactStore: contactStore
+                    )
                 } label: {
                     VStack(spacing: 4) {
                         Image(systemName: "arrow.left.arrow.right")
@@ -88,7 +113,7 @@ struct AccountCardView: View {
                             .frame(width: 30, height: 30)
                             .background(.secondary.opacity(0.15))
                             .clipShape(Circle())
-                        
+
                         Text("Transfer")
                             .font(.caption)
                     }

@@ -53,7 +53,7 @@ final class TransferViewModelTests: XCTestCase {
         let account = Account(id: UUID(), currency: "GBP", balance: 100, isDefault: true, ownerID: user.id)
         try accountStore.save(account)
 
-        let contact = Contact(id: UUID(), firstName: "Masha", lastName: "Jackson", phoneNumber: "+44...")
+        let contact = Contact(id: UUID(), firstName: "Masha", lastName: "Jackson", phoneNumber: "+447484983939")
         let viewModel = TransferViewModel(accountStore: accountStore, transactionStore: transactionStore)
 
         viewModel.transfer(amount: 0, accountID: account.id, contact: contact)

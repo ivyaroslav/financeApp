@@ -8,16 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
+
     let userStore: UserStore
     let accountStore: AccountStore
     let transactionStore: TransactionStore
     let contactStore: ContactStore
 
     var body: some View {
-        AccountListView(
-            viewModel: AccountListViewModel(
-                store: accountStore
+
+        NavigationStack {
+            AccountListView(
+                viewModel: AccountListViewModel(
+                    store: accountStore
+                ),
+                accountStore: accountStore,
+                transactionStore: transactionStore,
+                contactStore: contactStore
             )
-        )
+        }
     }
 }

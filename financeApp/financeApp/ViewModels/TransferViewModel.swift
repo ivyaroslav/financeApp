@@ -10,6 +10,7 @@ import Foundation
 final class TransferViewModel: ObservableObject {
 
     @Published var errorMessage: String?
+    @Published var account: Account?
 
     private let accountStore: AccountStore
     private let transactionStore: TransactionStore
@@ -70,5 +71,13 @@ final class TransferViewModel: ObservableObject {
         } catch {
             errorMessage = "We couldn't complete the transfer. Please try again."
         }
+        
+       
+    }
+    func loadAccount(accountID: UUID) {
+        do {
+            account = try accountStore.fetchByID(accountID)
+        }
+        catch { errorMessage = "We couldn't load your account." }
     }
 }

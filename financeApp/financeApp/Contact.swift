@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct Contact {
+struct Contact: Hashable {
     let id: UUID
     let firstName: String
     let lastName: String
