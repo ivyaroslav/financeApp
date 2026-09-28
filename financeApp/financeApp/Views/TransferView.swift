@@ -7,7 +7,6 @@
 
 
 
-
 import SwiftUI
 
 struct TransferView: View {
@@ -46,7 +45,6 @@ struct TransferView: View {
         VStack(alignment: .leading, spacing: 28) {
 
             VStack(alignment: .leading, spacing: 10) {
-
                 Image(systemName: "arrow.left.arrow.right")
                     .font(.system(size: 50))
                     .padding(.bottom, 5)
@@ -60,88 +58,95 @@ struct TransferView: View {
                     .foregroundStyle(.secondary)
             }
 
-            VStack(alignment: .leading, spacing: 18) {
+            // Heading + list grouped, with tighter spacing
+            VStack(alignment: .leading, spacing: 8) {
 
                 Text("Contacts")
                     .font(.headline)
 
-                if contactViewModel.contacts.isEmpty {
+                ScrollView {
+                    VStack(spacing: 0) {
 
-                    Text("You don't have any contacts yet.")
-                        .foregroundStyle(.secondary)
-
-                } else {
-
-                    ForEach(
-                        contactViewModel.contacts,
-                        id: \.id
-                    ) { contact in
-
+                        // Add new contact row (always first)
                         Button {
-
                             navigationPath.append(
-                                NavigationRoute.amount(
-                                    accountID: accountID,
-                                    contact: contact
-                                )
+                                NavigationRoute.createContact(accountID)
                             )
-
                         } label: {
-
                             HStack(spacing: 12) {
 
-                                Image(systemName: "person.circle.fill")
+                                Image(systemName: "plus.circle.fill")
                                     .font(.system(size: 35))
+                                    .foregroundStyle(Color.accentColor)
 
-                                VStack(
-                                    alignment: .leading,
-                                    spacing: 3
-                                ) {
-
-                                    Text(
-                                        "\(contact.firstName) \(contact.lastName)"
-                                    )
-                                    .font(.body)
+                                Text("Add new contact")
                                     .fontWeight(.medium)
-
-                                    Text(contact.phoneNumber)
-                                        .font(.caption)
-                                        .foregroundStyle(.secondary)
-                                }
+                                    .foregroundStyle(Color.accentColor)
 
                                 Spacer()
-
-                                Image(systemName: "chevron.right")
-                                    .foregroundStyle(.secondary)
                             }
                             .padding(.vertical, 8)
                         }
                         .buttonStyle(.plain)
+
+                        if contactViewModel.contacts.isEmpty {
+
+                            Text("You don't have any contacts yet.")
+                                .foregroundStyle(.secondary)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.top, 16)
+
+                        } else {
+
+                            ForEach(
+                                contactViewModel.contacts,
+                                id: \.id
+                            ) { contact in
+
+                                Button {
+                                    navigationPath.append(
+                                        NavigationRoute.amount(
+                                            accountID: accountID,
+                                            contact: contact
+                                        )
+                                    )
+                                } label: {
+                                    HStack(spacing: 12) {
+
+                                        Image(systemName: "person.circle.fill")
+                                            .font(.system(size: 35))
+
+                                        VStack(
+                                            alignment: .leading,
+                                            spacing: 3
+                                        ) {
+                                            Text(
+                                                "\(contact.firstName) \(contact.lastName)"
+                                            )
+                                            .fontWeight(.medium)
+
+                                            Text(contact.phoneNumber)
+                                                .font(.caption)
+                                                .foregroundStyle(.secondary)
+                                        }
+
+                                        Spacer()
+
+                                        Image(systemName: "chevron.right")
+                                            .foregroundStyle(.secondary)
+                                    }
+                                    .padding(.vertical, 8)
+                                }
+                                .buttonStyle(.plain)
+                            }
+                        }
                     }
                 }
+                .scrollIndicators(.hidden)
             }
-
-            Spacer()
-
-            Button {
-
-                navigationPath.append(
-                    NavigationRoute.createContact(accountID)
-                )
-
-            } label: {
-
-                Label(
-                    "Add new contact",
-                    systemImage: "plus"
-                )
-                .fontWeight(.semibold)
-                .frame(maxWidth: .infinity)
-                .padding()
-            }
-            .buttonStyle(.borderedProminent)
         }
-        .padding(24)
+        .padding(.horizontal, 24)
+        .padding(.top, 24)
         .navigationTitle("Transfer")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
@@ -149,4 +154,3 @@ struct TransferView: View {
         }
     }
 }
-

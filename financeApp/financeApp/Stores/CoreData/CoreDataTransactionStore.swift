@@ -61,14 +61,14 @@ final class CoreDataTransactionStore: TransactionStore {
         let entities = try context.fetch(request)
         return entities.map { entity in
             
-            let contact = entity.contact.map { contactEntity in
-                    Contact(
-                        id: contactEntity.id!,
-                        firstName: contactEntity.firstName!,
-                        lastName: contactEntity.lastName!,
-                        phoneNumber: contactEntity.phoneNumber!
-                    )
-                }
+        let contact = entity.contact.map { contactEntity in
+                Contact(
+                    id: contactEntity.id!,
+                    firstName: contactEntity.firstName!,
+                    lastName: contactEntity.lastName!,
+                    phoneNumber: contactEntity.phoneNumber!
+                )
+        }
             
             return Transaction(
                 id: entity.id ?? UUID(),
