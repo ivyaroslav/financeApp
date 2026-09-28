@@ -97,9 +97,13 @@ struct TransactionListView: View {
                                 .fontWeight(.semibold)
                             }
                             .padding(.vertical, 8)
+                            .frame(maxWidth: .infinity)
                         }
                     }
+                    .frame(maxWidth: .infinity)
                 }
+                .frame(maxHeight: .infinity)
+                .scrollIndicators(.hidden)
             }
         }
         .padding(.horizontal, 24)

@@ -87,9 +87,8 @@ struct AccountListView: View {
                         transactionStore: transactionStore
                     )
                     .id(selectedAccountID)
+                    .frame(maxHeight: .infinity)
                 }
-
-                Spacer()
             }
         }
         .frame(
