@@ -34,12 +34,13 @@ struct RootView: View {
                         userStore: userStore,
                         accountStore: accountStore,
                         transactionStore: transactionStore,
-                        contactStore: contactStore
+                        contactStore: contactStore,
+                        user: currentUser
                     )
 
                 } else {
 
-                    OnboardingAccountInfoView(
+                    AccountCreationView(
                         accountStore: accountStore,
                         user: currentUser
                     ) { _ in

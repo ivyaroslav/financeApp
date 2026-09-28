@@ -25,5 +25,7 @@ enum NavigationRoute: Hashable {
         contact: Contact,
         currency: String
     )
+    
+    case createAccount
 }
 

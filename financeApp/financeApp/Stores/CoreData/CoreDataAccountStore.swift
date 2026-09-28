@@ -19,6 +19,21 @@ final class CoreDataAccountStore: AccountStore {
             request.predicate = NSPredicate(format: "id == %@", account.id as CVarArg)
 
             let entity = try context.fetch(request).first ?? AccountEntity(context: context)
+            if account.isDefault {
+
+                let request = AccountEntity.fetchRequest()
+
+                request.predicate = NSPredicate(
+                    format: "isDefault == YES AND id != %@",
+                    account.id as CVarArg
+                )
+
+                let existingDefaults = try context.fetch(request)
+
+                for entity in existingDefaults {
+                    entity.isDefault = false
+                }
+            }
 
             entity.id = account.id
             entity.balance = NSDecimalNumber(decimal: account.balance)

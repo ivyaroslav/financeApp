@@ -5,8 +5,6 @@
 //  Created by yaroslav on 24/09/2026.
 //
 
-
-
 import SwiftUI
 
 struct TransferView: View {
@@ -58,7 +56,6 @@ struct TransferView: View {
                     .foregroundStyle(.secondary)
             }
 
-            // Heading + list grouped, with tighter spacing
             VStack(alignment: .leading, spacing: 8) {
 
                 Text("Contacts")
@@ -67,7 +64,7 @@ struct TransferView: View {
                 ScrollView {
                     VStack(spacing: 0) {
 
-                        // Add new contact row (always first)
+                        
                         Button {
                             navigationPath.append(
                                 NavigationRoute.createContact(accountID)

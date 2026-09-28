@@ -15,6 +15,7 @@ struct ContentView: View {
     let accountStore: AccountStore
     let transactionStore: TransactionStore
     let contactStore: ContactStore
+    let user: User
 
     @State private var navigationPath = NavigationPath()
 
@@ -66,6 +67,15 @@ struct ContentView: View {
                         accountID: accountID,
                         navigationPath: $navigationPath
                     )
+                    
+                case .createAccount:
+                    AccountCreationView(
+                        accountStore: accountStore,
+                        user: user
+                    ) { account in
+                        // refresh accounts
+                        navigationPath.removeLast()
+                    }
 
                 case .success(
                     let amount,

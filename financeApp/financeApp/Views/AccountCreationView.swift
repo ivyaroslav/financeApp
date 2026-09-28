@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OnboardingAccountInfoView: View {
+struct AccountCreationView: View {
 
     let accountStore: AccountStore
     let user: User
@@ -29,7 +29,7 @@ struct OnboardingAccountInfoView: View {
                     .font(.system(size: 60))
                     .padding(.bottom, 5)
 
-                Text("Create your first account")
+                Text("Create a new account")
                     .font(.largeTitle)
                     .fontWeight(.bold)
 

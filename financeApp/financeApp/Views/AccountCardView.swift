@@ -66,7 +66,9 @@ struct AccountCardView: View {
 
                     Button {
 
-                        // Open add account screen
+                        navigationPath.append(
+                               NavigationRoute.createAccount
+                           )
 
                     } label: {
 
