@@ -16,6 +16,7 @@ final class CoreDataTransactionStore: TransactionStore {
     }
 
     func save(_ transaction: Transaction) throws {
+
         let entity = TransactionEntity(context: context)
 
         entity.id = transaction.id
@@ -35,6 +36,19 @@ final class CoreDataTransactionStore: TransactionStore {
 
         entity.account = accountEntity
 
+        if let contact = transaction.contact {
+
+            let contactRequest = ContactEntity.fetchRequest()
+            contactRequest.predicate = NSPredicate(
+                format: "id == %@",
+                contact.id as CVarArg
+            )
+
+            if let contactEntity = try context.fetch(contactRequest).first {
+                entity.contact = contactEntity
+            }
+        }
+
         try context.save()
     }
 
@@ -46,12 +60,22 @@ final class CoreDataTransactionStore: TransactionStore {
         )
         let entities = try context.fetch(request)
         return entities.map { entity in
-            Transaction(
+            
+            let contact = entity.contact.map { contactEntity in
+                    Contact(
+                        id: contactEntity.id!,
+                        firstName: contactEntity.firstName!,
+                        lastName: contactEntity.lastName!,
+                        phoneNumber: contactEntity.phoneNumber!
+                    )
+                }
+            
+            return Transaction(
                 id: entity.id ?? UUID(),
                 amount: entity.amount?.decimalValue ?? 0,
                 date: entity.date ?? Date(),
                 type: entity.type ?? "",
-                contact: nil,
+                contact: contact,
                 accountID: entity.account?.id ?? accountID
             )
         }
