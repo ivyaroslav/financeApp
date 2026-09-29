@@ -28,4 +28,10 @@ class AccountListViewModel: ObservableObject {
                 errorMessage = "We couldn't load your accounts. Please try again."
              }
     }
+    
+    func deleteAccount(_ account: Account) {
+            // not implemented yet
+        }
+    
+    
 }
