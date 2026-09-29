@@ -74,7 +74,7 @@ struct AccountListView: View {
                     }
                 }
                 .tabViewStyle(.page)
-                .frame(height: 200)
+                .frame(height: 240)
 
                 if let selectedAccountID,
                    let selectedAccount = viewModel.accounts.first(

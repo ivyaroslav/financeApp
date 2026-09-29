@@ -21,7 +21,8 @@ class AccountListViewModel: ObservableObject {
 
     func loadAccounts() {
         do {
-            accounts = try store.fetchAll()
+            let fetched = try store.fetchAll()
+            accounts = fetched.sorted { $0.isDefault && !$1.isDefault }
             errorMessage = nil
            } catch {
                 errorMessage = "We couldn't load your accounts. Please try again."
