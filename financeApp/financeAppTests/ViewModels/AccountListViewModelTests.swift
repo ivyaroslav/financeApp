@@ -45,4 +45,20 @@ final class AccountListViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.accounts[0].id, account1.id)
         XCTAssertEqual(viewModel.accounts[1].id, account2.id)
     }
+    
+    func testDeleteAccount_removesFromStore() throws {
+        let store = InMemoryAccountStore()
+        
+        let account = Account.init(
+            id: UUID(),
+            currency: "GBP",
+            balance: 100,
+            isDefault: true,
+            ownerID: UUID()
+        )
+        try store.save(account)
+        try store.delete(account)
+        let accounts = try store.fetchAll()
+        XCTAssertEqual(accounts.count, 0)
+    }
 }
