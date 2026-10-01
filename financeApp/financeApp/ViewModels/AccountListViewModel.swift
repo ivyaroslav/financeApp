@@ -30,8 +30,27 @@ class AccountListViewModel: ObservableObject {
     }
     
     func deleteAccount(_ account: Account) {
-            // not implemented yet
+        do {
+            try store.delete(account)
+            accounts.removeAll { $0.id == account.id }
+
+            if account.isDefault, let newDefault = accounts.first {
+                let updated = Account(
+                    id: newDefault.id,
+                    currency: newDefault.currency,
+                    balance: newDefault.balance,
+                    isDefault: true,
+                    ownerID: newDefault.ownerID
+                )
+                try store.save(updated)
+
+                if let index = accounts.firstIndex(where: { $0.id == newDefault.id }) {
+                    accounts[index] = updated
+                }
+            }
+        } catch {
+            errorMessage = "We couldn't delete this account. Please try again."
         }
-    
+    }
     
 }
