@@ -61,4 +61,20 @@ final class AccountListViewModelTests: XCTestCase {
         let accounts = try store.fetchAll()
         XCTAssertEqual(accounts.count, 0)
     }
+    
+    func testDeleteAccount_whenDeletingDefault_promotesAnotherAccountToDefault() throws {
+        let store = InMemoryAccountStore()
+        let defaultAccount = Account(id: UUID(), currency: "GBP", balance: 100, isDefault: true, ownerID: UUID())
+        let otherAccount = Account(id: UUID(), currency: "EUR", balance: 50, isDefault: false, ownerID: UUID())
+        try store.save(defaultAccount)
+        try store.save(otherAccount)
+
+        let viewModel = AccountListViewModel(store: store)
+        viewModel.loadAccounts()
+
+        viewModel.deleteAccount(defaultAccount)
+
+        XCTAssertEqual(viewModel.accounts.count, 1)
+        XCTAssertTrue(viewModel.accounts.first?.isDefault ?? false)
+    }
 }
