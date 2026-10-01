@@ -27,7 +27,6 @@ struct ContentView: View {
                 viewModel: AccountListViewModel(
                     store: accountStore
                 ),
-                accountStore: accountStore,
                 transactionStore: transactionStore,
                 contactStore: contactStore,
                 navigationPath: $navigationPath

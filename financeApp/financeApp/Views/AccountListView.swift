@@ -6,15 +6,11 @@
 //
 
 
-
-
 import SwiftUI
 
 struct AccountListView: View {
 
     @StateObject private var viewModel: AccountListViewModel
-
-    let accountStore: AccountStore
     let transactionStore: TransactionStore
     let contactStore: ContactStore
 
@@ -24,14 +20,12 @@ struct AccountListView: View {
 
     init(
         viewModel: AccountListViewModel,
-        accountStore: AccountStore,
         transactionStore: TransactionStore,
         contactStore: ContactStore,
         navigationPath: Binding<NavigationPath>
     ) {
         _viewModel = StateObject(wrappedValue: viewModel)
 
-        self.accountStore = accountStore
         self.transactionStore = transactionStore
         self.contactStore = contactStore
         self._navigationPath = navigationPath
@@ -54,7 +48,19 @@ struct AccountListView: View {
 
             } else if viewModel.accounts.isEmpty {
 
-                Text("No accounts available.")
+                VStack(spacing: 16) {
+
+                    Text("No accounts available.")
+                        .foregroundStyle(.secondary)
+
+                    Button {
+                        navigationPath.append(NavigationRoute.createAccount)
+                    } label: {
+                        Label("Create an account", systemImage: "plus")
+                            .fontWeight(.semibold)
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
 
             } else {
 
@@ -64,7 +70,7 @@ struct AccountListView: View {
 
                         AccountCardView(
                             account: account,
-                            accountStore: accountStore,
+                            accountListViewModel: viewModel,
                             transactionStore: transactionStore,
                             contactStore: contactStore,
                             navigationPath: $navigationPath
@@ -133,4 +139,3 @@ struct AccountListView: View {
         }
     }
 }
-

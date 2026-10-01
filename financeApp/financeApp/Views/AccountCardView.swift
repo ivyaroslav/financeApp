@@ -11,11 +11,13 @@ import SwiftUI
 struct AccountCardView: View {
 
     let account: Account
-    let accountStore: AccountStore
+    @ObservedObject var accountListViewModel: AccountListViewModel
     let transactionStore: TransactionStore
     let contactStore: ContactStore
 
     @Binding var navigationPath: NavigationPath
+
+    @State private var showDeleteConfirmation = false
 
     var body: some View {
 
@@ -80,7 +82,7 @@ struct AccountCardView: View {
 
                     Button(role: .destructive) {
 
-                        // Close this account
+                        showDeleteConfirmation = true
 
                     } label: {
 
@@ -107,6 +109,17 @@ struct AccountCardView: View {
                 .buttonStyle(.plain)
             }
         }
+        .confirmationDialog(
+            "Close this account?",
+            isPresented: $showDeleteConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button("Close account", role: .destructive) {
+                accountListViewModel.deleteAccount(account)
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("This will permanently delete this account and its transaction history. This cannot be undone.")
+        }
     }
 }
-
