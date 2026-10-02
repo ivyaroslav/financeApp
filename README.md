@@ -23,7 +23,7 @@ Users can hold accounts across multiple currencies, track expenses by category, 
 - **Single local user model:** the app creates one local user profile on first launch; no authentication, as this is out of scope for the project's focus on data modelling and architecture.
  
 **Architecture**
-- **MVVM:** Views bind to ObservableObject ViewModels, which hold application logic and expose @Published state
+- **MVVM:** views bind to ObservableObject ViewModels, which hold application logic and expose @Published state
 - **Repository pattern:** all persistence is accessed through protocols (AccountStore, TransactionStore, UserStore, ContactStore), with Core Data as the concrete implementation. ViewModels depend only on these protocols, never on Core Data directly, which keeps the persistence layer swappable and testable in isolation.
 - **Combine:** used for reactive state updates between ViewModels and Views.
 - **Core Data:** used for persistent local storage of the app’s financial data and relationships between accounts, transactions, contacts, and users.
