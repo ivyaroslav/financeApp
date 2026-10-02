@@ -1,6 +1,6 @@
 # A personal finance and multi-currency wallet app built with SwiftUI
 
-Users can hold balances across multiple currencies, track expenses by category, and send money to contacts — all backed by a local Core Data persistence layer.
+Users can hold accounts across multiple currencies, track expenses by category, and send money to contacts. Backed by a local Core Data persistence layer.
 
 <p align="center">
   <table>
