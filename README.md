@@ -8,6 +8,7 @@ Users can hold balances across multiple currencies, track expenses by category, 
       <td><img src="financeApp/financeApp/screenshots/onboarding.png" width="200"></td>
       <td><img src="financeApp/financeApp/screenshots/onboarding2.png" width="200"></td>
       <td><img src="financeApp/financeApp/screenshots/accountview.png" width="200"></td>
+        <td><img src="financeApp/financeApp/screenshots/transaction.png" width="200"></td>
     </tr>
   </table>
 </p>
