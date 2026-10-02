@@ -3,9 +3,9 @@
 Users can hold balances across multiple currencies, track expenses by category, and send money to contacts — all backed by a local Core Data persistence layer.
 
 <p align="center">
-  <img src="screenshots/onboarding.png" width="200">
-  <img src="screenshots/onboarding2.png" width="200">
-  <img src="screenshots/accountview.png" width="200">
+  <img src="financeApp/screenshots/onboarding.png" width="200">
+  <img src="financeApp/screenshots/onboarding2.png" width="200">
+  <img src="financeApp/screenshots/accountview.png" width="200">
 </p>
 
 **Features**
